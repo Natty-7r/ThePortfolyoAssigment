@@ -15,7 +15,6 @@ const Services = () => {
     () => catagoriesExperience(timeline),
     []
   );
-  console.log(educations);
   return (
     <SectionContainer
       name={"resume"}
@@ -74,7 +73,7 @@ const Services = () => {
           <div className="resume-row">
             <h2 className="theme-after dark-color">Education</h2>
             <ul>
-              {experiences.map(
+              {educations.map(
                 ({
                   company_name,
                   summary,
