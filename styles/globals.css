@@ -30,6 +30,13 @@ div#__next {
 .ti-cursor {
   margin-left: 5px;
 }
+.social-icons {
+  display: flex;
+  gap: 0.4rem;
+}
+.feature-content {
+  margin-top: 1rem;
+}
 
 /* image popup */
 img.mfp-img {

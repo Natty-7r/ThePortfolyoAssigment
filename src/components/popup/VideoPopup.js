@@ -1,6 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import useClickOutside from "../../useClickOutside";
+import { UIContext } from "@/src/UIContext";
 
 const VideoPopup_ = ({ close, videoID }) => {
   let domNode = useClickOutside(() => {
@@ -36,6 +37,7 @@ const VideoPopup_ = ({ close, videoID }) => {
 };
 
 const VideoPopup = () => {
+  const { videoPlayer, closeVidoePlayer } = useContext(UIContext);
   const [video, setVideo] = useState(false);
   const [videoValue, setVideoValue] = useState(null);
   useEffect(() => {
@@ -56,10 +58,15 @@ const VideoPopup = () => {
       });
     }, 1500);
   }, []);
+
+  useEffect(() => {
+    setVideo(videoPlayer.playVidoe);
+    setVideoValue(videoPlayer.videoSrc);
+  }, [videoPlayer]);
   return (
     <Fragment>
       {video && (
-        <VideoPopup_ close={() => setVideo(false)} videoID={videoValue} />
+        <VideoPopup_ close={() => closeVidoePlayer()} videoID={videoValue} />
       )}
     </Fragment>
   );

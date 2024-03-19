@@ -1,83 +1,40 @@
+import { useContext } from "react";
 import SectionContainer from "./SectionContainer";
+import { AlexioContext } from "../Context";
 
 const AboutUs = () => {
+  const {
+    userData: { about, services, projects, testimonials },
+  } = useContext(AlexioContext);
   return (
     <SectionContainer
       name={"about"}
       extraClass="about-section"
       title={"About"}
       subTitle={"WHO I AM"}
+      // leftImage="static/img/title-1.jpg"
       leftImage="static/img/title-1.jpg"
       leftImageTitle={"About Me"}
     >
-      <div className="row">
-        <div className="col-md-4">
-          <img src="static/img/my-pic.jpg" title alt />
+      <div className="row ">
+        <div className="col-md-4  ">
+          {/* <img src="static/img/my-pic.jpg" title alt /> */}
+          <img
+            src={about.avatar.url}
+            title={`${about.name}'s profile image`}
+            alt={`${about.name}'s profile image`}
+          />
         </div>
         <div className="col-md-8 md-m-30px-t">
           <div className="about-text">
-            <h3 className="dark-color">I'm Alexis Larten</h3>
-            <p className="m-0px">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <h3 className="dark-color">I'm {about.name}</h3>
+            <p className="m-0px">{about.description}</p>
           </div>{" "}
           {/* about-text */}
           <div className="row m-30px-t">
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-ruler-pencil" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Development</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-image" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Graphic</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-brush-alt" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Web design</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-mobile" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Mobile apps</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
+            {services.map((service) => (
+              <Serivce service={service} />
+            ))}
           </div>{" "}
           {/* row */}
           <div className="btn-bar">
@@ -97,9 +54,9 @@ const AboutUs = () => {
         <div className="row">
           <div className="col-md-3 col-sm-6 md-m-15px-tb">
             <div className="counter-col counter-box">
-              <div className="counter-data" data-count={375}>
+              <div className="counter-data" data-count={testimonials.length}>
                 <i className="theme-color ti-face-smile" />
-                <div className="count dark-color">375</div>
+                <div className="count dark-color">{testimonials.length}</div>
                 <h6>Happy Clients</h6>
               </div>
             </div>
@@ -127,9 +84,9 @@ const AboutUs = () => {
           {/* col */}
           <div className="col-md-3 col-sm-6 md-m-15px-tb">
             <div className="counter-col counter-box">
-              <div className="counter-data" data-count={375}>
+              <div className="counter-data" data-count={projects.length}>
                 <i className="theme-color ti-thumb-up" />
-                <div className="count dark-color">375</div>
+                <div className="count dark-color">{projects.length}</div>
                 <h6>Projects</h6>
               </div>
             </div>
@@ -139,6 +96,26 @@ const AboutUs = () => {
         {/* row */}
       </div>
     </SectionContainer>
+  );
+};
+
+const Serivce = ({ service }) => {
+  return (
+    <div className="col-md-6 col-sm-6 m-30px-b">
+      <div className="feature-box">
+        {/* <i className="icon dark-color theme-after ti-mobile" /> */}
+        <img src={service.image.url} className="img-thumbnail" />
+        <div className="feature-content">
+          <h5 className="dark-color">{service.name}</h5>
+          <p>{service.desc}</p>
+          <div className="home-text  feature-content">
+            <h6 className="dark-color theme-after text-start bg">
+              {service.charge}
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 export default AboutUs;

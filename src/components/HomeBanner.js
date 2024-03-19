@@ -3,7 +3,11 @@ import { AlexioContext } from "../Context";
 import TypingAnimation from "./TypingAnimation";
 
 const HomeBanner = () => {
-  const { nav, changeNav } = useContext(AlexioContext);
+  const {
+    nav,
+    changeNav,
+    userData: { about, social_handles },
+  } = useContext(AlexioContext);
   const activePageClass = () => ("home" === nav ? "" : "page--inactive");
   return (
     <div
@@ -15,7 +19,11 @@ const HomeBanner = () => {
         <div className="row no-gutters full-screen">
           <div className="col-lg-3 col-xl-4 blue-bg">
             <div className="d-flex align-items-end home-user-avtar v-center-box">
-              <img src="static/img/user.png" title alt />
+              <img
+                src={about.avatar.url}
+                title={`${about.name}'s profile image`}
+                alt={`${about.name}'s profile image`}
+              />
             </div>
           </div>
           <div className="col-lg-9 col-xl-8">
@@ -24,9 +32,17 @@ const HomeBanner = () => {
                 <div className="v-center-box d-flex align-items-center">
                   <div className="home-text">
                     <h6 className="dark-color theme-after">Hello, There</h6>
-                    <h1 className="dark-color blue-after">I'm Alexis Larten</h1>
+                    <h1 className="dark-color blue-after">I'm {about.name}</h1>
+                    <p>I am {about.title}</p>
                     <p>
-                      WEB <TypingAnimation />
+                      I Develop{" "}
+                      <TypingAnimation
+                        texts={[
+                          " 3D visuals",
+                          "user interfaces",
+                          " web applications",
+                        ]}
+                      />
                     </p>
                     <div className="btn-bar">
                       <a href="#" className="btn btn-theme">
@@ -35,26 +51,16 @@ const HomeBanner = () => {
                     </div>
                   </div>
                   <ul className="social-icons">
-                    <li>
-                      <a className="facebook" href="#">
-                        <i className="fab fa-facebook-f" />
-                      </a>
-                    </li>{" "}
-                    <li>
-                      <a className="twitter" href="#">
-                        <i className="fab fa-twitter" />
-                      </a>
-                    </li>{" "}
-                    <li>
-                      <a className="google" href="#">
-                        <i className="fab fa-google-plus-g" />
-                      </a>
-                    </li>{" "}
-                    <li>
-                      <a className="linkedin" href="#">
-                        <i className="fab fa-linkedin-in" />
-                      </a>
-                    </li>
+                    {social_handles.map((social_handle) => (
+                      <li key={social_handle._id}>
+                        <a
+                          className={`${social_handle.platform.toLocaleLowerCase()}`}
+                          href={social_handle.url}
+                        >
+                          <img src={social_handle.image.url} />
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -65,4 +71,5 @@ const HomeBanner = () => {
     </div>
   );
 };
+
 export default HomeBanner;

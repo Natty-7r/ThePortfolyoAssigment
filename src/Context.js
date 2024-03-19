@@ -7,13 +7,15 @@ const AlexioContext = createContext();
 const type = {
   NAV: "NAV",
   TOGGLE: "TOGGLE",
+  USER_DATA: "USER_DATA",
 };
-const { NAV, TOGGLE } = type;
+const { NAV, TOGGLE, USER_DATA } = type;
 
 // Initial Value
 const initialState = {
   nav: "home",
   toggle: false,
+  userData: null,
 };
 
 // Reducer
@@ -29,6 +31,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         toggle: payload,
+      };
+    case USER_DATA:
+      return {
+        ...state,
+        userData: payload,
       };
     default:
       return state;
@@ -49,14 +56,22 @@ const AlexioState = ({ children }) => {
       payload: toggleValue,
     });
   }, []);
+  const setUserData = useCallback((userData) => {
+    dispatch({
+      type: USER_DATA,
+      payload: userData,
+    });
+  }, []);
 
-  const { nav, toggle } = state;
+  const { nav, toggle, userData } = state;
   return (
     <AlexioContext.Provider
       value={{
         nav,
         changeNav,
         toggle,
+        userData,
+        setUserData,
       }}
     >
       {children}

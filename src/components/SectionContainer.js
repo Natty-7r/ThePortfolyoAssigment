@@ -15,7 +15,7 @@ const SectionContainer = ({
   const activePageClass = () => (name === nav ? "" : "page--inactive");
   return (
     <div
-      className={`page ${extraClass} white-bg ${activePageClass(name)}`}
+      className={`page ${extraClass} white-bg ${activePageClass(name)} `}
       id={name}
       onClick={() => changeNav(name, false)}
     >

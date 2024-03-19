@@ -1,8 +1,12 @@
 import emailjs from "emailjs-com";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SectionContainer from "./SectionContainer";
+import { AlexioContext } from "../Context";
 
 const Contact = () => {
+  const {
+    userData: { about, email: emailAddress },
+  } = useContext(AlexioContext);
   const [mailData, setMailData] = useState({
     name: "",
     email: "",
@@ -125,7 +129,7 @@ const Contact = () => {
           <div className="contact-info">
             <i className="theme-color ti-location-pin" />
             <h6 className="dark-color font-alt">Our Address</h6>
-            <p>123 Stree New York City , USA 750065.</p>
+            <p>{about.address}</p>
           </div>
         </div>
         <div className="col-md-4 m-15px-tb">
@@ -133,9 +137,9 @@ const Contact = () => {
             <i className="theme-color ti-mobile" />
             <h6 className="dark-color font-alt">Our Phone</h6>
             <p>
-              Office: +004 444 444
+              Office: {about.phoneNumber}
               <br />
-              Office: +004 444 444
+              Office: {about.phoneNumber}
               <br />
             </p>
           </div>
@@ -145,9 +149,9 @@ const Contact = () => {
             <i className="theme-color ti-email" />
             <h6 className="dark-color font-alt">Our Email</h6>
             <p>
-              info@domain.com
+              {emailAddress}
               <br />
-              contact@domain.com
+              {emailAddress}
             </p>
           </div>
         </div>

@@ -1,10 +1,17 @@
 import Isotope from "isotope-layout";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import SectionContainer from "./SectionContainer";
 import Testimonials from "./Testimonials";
+import { AlexioContext } from "../Context";
+import { UIContext } from "../UIContext";
 
 const Portfolio = () => {
   // Isotope
+  const {
+    userData: { projects, youtube },
+  } = useContext(AlexioContext);
+
+  const { setImagePreview, setVideoPlayer } = useContext(UIContext);
   const isotope = useRef();
   const [filterKey, setFilterKey] = useState("*");
   useEffect(() => {
@@ -87,228 +94,69 @@ const Portfolio = () => {
         {/* Portfolio Filter */}
         <div className="portfolio-content">
           <ul className="portfolio-cols portfolio-cols-3">
-            <li className="portfolio-item website">
-              <div className="portfolio-col portfolio-hover-01">
-                <div className="portfolio-img">
-                  <a href="#">
-                    <img src="static/img/portfolio-1.jpg" title alt />
-                  </a>
-                  <div className="hover">
-                    <div className="action-btn">
-                      <a
-                        href="http://www.youtube.com/watch?v=0O2aH4XLbto"
-                        className="popup-video theme-color"
-                      >
-                        <i className="fa fa-play" />
+            {projects.map(
+              ({
+                _id,
+                title,
+                description,
+                image,
+                liveurl,
+                githuburl,
+                techStack,
+              }) => (
+                <li className={`portfolio-item website`}>
+                  <div className="portfolio-col portfolio-hover-01">
+                    <div className="portfolio-img">
+                      <a href="#">
+                        <img src={image.url} alt={title} />
                       </a>
-                      <a
-                        className="lightbox-gallery theme-color"
-                        href="static/img/portfolio-1.jpg"
-                        title="Lightbox gallery image title..."
-                      >
-                        <i className="fas fa-expand" />
-                      </a>
-                      <a href="#" className="theme-color">
-                        <i className="fa fa-link" />
-                      </a>
-                    </div>{" "}
-                    {/* Video Btn */}
+                      <div className="hover">
+                        <div className="action-btn">
+                          <a
+                            href={youtube.url}
+                            target="_black"
+                            className="popup-video theme-color"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setVideoPlayer(liveurl);
+                            }}
+                          >
+                            <i className="fa fa-play" />
+                          </a>
+                          <a
+                            className="lightbox-gallery theme-color"
+                            href={image.url}
+                            rel="noopener noreferrer"
+                            title={`Lightbox gallery image ${title}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setImagePreview(image.url);
+                            }}
+                          >
+                            <i className="fas fa-expand" />
+                          </a>
+                          <a
+                            target="_black"
+                            href={githuburl}
+                            className="theme-color"
+                          >
+                            <i className="fa fa-link" />
+                          </a>
+                        </div>{" "}
+                        {/* Video Btn */}
+                      </div>{" "}
+                      {/* Hover */}
+                    </div>
+                    <div className="portfolio-info">
+                      <h5>{title}</h5>
+                      <span>{description}</span>
+                      <span>{techStack.join(" ,")}</span>
+                    </div>
                   </div>{" "}
-                  {/* Hover */}
-                </div>
-                <div className="portfolio-info">
-                  <h5>Portpolio Template</h5>
-                  <span>Resent Work</span>
-                </div>
-              </div>{" "}
-              {/* Portfolio */}
-            </li>{" "}
-            {/* col */}
-            <li className="portfolio-item apps">
-              <div className="portfolio-col portfolio-hover-01">
-                <div className="portfolio-img">
-                  <a href="#">
-                    <img src="static/img/portfolio-2.jpg" title alt />
-                  </a>
-                  <div className="hover">
-                    <div className="action-btn">
-                      <a
-                        href="http://www.youtube.com/watch?v=0O2aH4XLbto"
-                        className="popup-video theme-color"
-                      >
-                        <i className="fa fa-play" />
-                      </a>
-                      <a
-                        className="lightbox-gallery theme-color"
-                        href="static/img/portfolio-2.jpg"
-                        title="Lightbox gallery image title..."
-                      >
-                        <i className="fas fa-expand" />
-                      </a>
-                      <a href="#" className="theme-color">
-                        <i className="fa fa-link" />
-                      </a>
-                    </div>{" "}
-                    {/* Video Btn */}
-                  </div>{" "}
-                  {/* Hover */}
-                </div>
-                <div className="portfolio-info">
-                  <h5>Portpolio Template</h5>
-                  <span>Resent Work</span>
-                </div>
-              </div>{" "}
-              {/* Portfolio */}
-            </li>{" "}
-            {/* col */}
-            <li className="portfolio-item photoshop apps">
-              <div className="portfolio-col portfolio-hover-01">
-                <div className="portfolio-img">
-                  <a href="#">
-                    <img src="static/img/portfolio-3.jpg" title alt />
-                  </a>
-                  <div className="hover">
-                    <div className="action-btn">
-                      <a
-                        href="http://www.youtube.com/watch?v=0O2aH4XLbto"
-                        className="popup-video theme-color"
-                      >
-                        <i className="fa fa-play" />
-                      </a>
-                      <a
-                        className="lightbox-gallery theme-color"
-                        href="static/img/portfolio-3.jpg"
-                        title="Lightbox gallery image title..."
-                      >
-                        <i className="fas fa-expand" />
-                      </a>
-                      <a href="#" className="theme-color">
-                        <i className="fa fa-link" />
-                      </a>
-                    </div>{" "}
-                    {/* Video Btn */}
-                  </div>{" "}
-                  {/* Hover */}
-                </div>
-                <div className="portfolio-info">
-                  <h5>Portpolio Template</h5>
-                  <span>Resent Work</span>
-                </div>
-              </div>{" "}
-              {/* Portfolio */}
-            </li>{" "}
-            {/* col */}
-            <li className="portfolio-item photoshop website">
-              <div className="portfolio-col portfolio-hover-01">
-                <div className="portfolio-img">
-                  <a href="#">
-                    <img src="static/img/portfolio-4.jpg" title alt />
-                  </a>
-                  <div className="hover">
-                    <div className="action-btn">
-                      <a
-                        href="http://www.youtube.com/watch?v=0O2aH4XLbto"
-                        className="popup-video theme-color"
-                      >
-                        <i className="fa fa-play" />
-                      </a>
-                      <a
-                        className="lightbox-gallery theme-color"
-                        href="static/img/portfolio-4.jpg"
-                        title="Lightbox gallery image title..."
-                      >
-                        <i className="fas fa-expand" />
-                      </a>
-                      <a href="#" className="theme-color">
-                        <i className="fa fa-link" />
-                      </a>
-                    </div>{" "}
-                    {/* Video Btn */}
-                  </div>{" "}
-                  {/* Hover */}
-                </div>
-                <div className="portfolio-info">
-                  <h5>Portpolio Template</h5>
-                  <span>Resent Work</span>
-                </div>
-              </div>{" "}
-              {/* Portfolio */}
-            </li>{" "}
-            {/* col */}
-            <li className="portfolio-item photoshop apps">
-              <div className="portfolio-col portfolio-hover-01">
-                <div className="portfolio-img">
-                  <a href="#">
-                    <img src="static/img/portfolio-5.jpg" title alt />
-                  </a>
-                  <div className="hover">
-                    <div className="action-btn">
-                      <a
-                        href="http://www.youtube.com/watch?v=0O2aH4XLbto"
-                        className="popup-video theme-color"
-                      >
-                        <i className="fa fa-play" />
-                      </a>
-                      <a
-                        className="lightbox-gallery theme-color"
-                        href="static/img/portfolio-5.jpg"
-                        title="Lightbox gallery image title..."
-                      >
-                        <i className="fas fa-expand" />
-                      </a>
-                      <a href="#" className="theme-color">
-                        <i className="fa fa-link" />
-                      </a>
-                    </div>{" "}
-                    {/* Video Btn */}
-                  </div>{" "}
-                  {/* Hover */}
-                </div>
-                <div className="portfolio-info">
-                  <h5>Portpolio Template</h5>
-                  <span>Resent Work</span>
-                </div>
-              </div>{" "}
-              {/* Portfolio */}
-            </li>{" "}
-            {/* col */}
-            <li className="portfolio-item app website">
-              <div className="portfolio-col portfolio-hover-01">
-                <div className="portfolio-img">
-                  <a href="#">
-                    <img src="static/img/portfolio-6.jpg" title alt />
-                  </a>
-                  <div className="hover">
-                    <div className="action-btn">
-                      <a
-                        href="http://www.youtube.com/watch?v=0O2aH4XLbto"
-                        className="popup-video theme-color"
-                      >
-                        <i className="fa fa-play" />
-                      </a>
-                      <a
-                        className="lightbox-gallery theme-color"
-                        href="static/img/portfolio-6.jpg"
-                        title="Lightbox gallery image title..."
-                      >
-                        <i className="fas fa-expand" />
-                      </a>
-                      <a href="#" className="theme-color">
-                        <i className="fa fa-link" />
-                      </a>
-                    </div>{" "}
-                    {/* Video Btn */}
-                  </div>{" "}
-                  {/* Hover */}
-                </div>
-                <div className="portfolio-info">
-                  <h5>Portpolio Template</h5>
-                  <span>Resent Work</span>
-                </div>
-              </div>{" "}
-              {/* Portfolio */}
-            </li>{" "}
-            {/* col */}
+                  {/* Portfolio */}
+                </li>
+              )
+            )}
           </ul>{" "}
           {/* row */}
         </div>{" "}

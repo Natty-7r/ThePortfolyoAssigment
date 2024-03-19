@@ -1,5 +1,21 @@
+import { useContext, useMemo } from "react";
+import { AlexioContext } from "../Context";
 import SectionContainer from "./SectionContainer";
+import {
+  catagoriesExperience,
+  categorizeSkills,
+  formateDate,
+} from "../utilits";
 const Services = () => {
+  const {
+    userData: { skills, timeline },
+  } = useContext(AlexioContext);
+  const categorizedSkills = useMemo(() => categorizeSkills(skills), []);
+  const [educations, experiences] = useMemo(
+    () => catagoriesExperience(timeline),
+    []
+  );
+  console.log(educations);
   return (
     <SectionContainer
       name={"resume"}
@@ -13,36 +29,43 @@ const Services = () => {
           <div className="resume-row">
             <h2 className="theme-after dark-color">Experience</h2>
             <ul>
-              <li>
-                <div className="r-name">
-                  <i className="theme-bg ti-briefcase" />
-                  <span className="dark-color">Google</span>
-                  <label>OCT 2015 - JUNE 2016</label>
-                </div>
-                <div className="r-info">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className="r-name">
-                  <i className="theme-bg ti-briefcase" />
-                  <span className="dark-color">Apple</span>
-                  <label>OCT 2015 - JUNE 2016</label>
-                </div>
-                <div className="r-info">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </li>
+              {experiences.map(
+                ({
+                  company_name,
+                  summary,
+                  startDate,
+                  endDate,
+                  jobTitle,
+                  _id,
+                  jobLocaion,
+                  bulletPoints,
+                }) => (
+                  <li key={_id}>
+                    <div className="r-name">
+                      <i className="theme-bg ti-briefcase" />
+                      <span className="dark-color">{company_name}</span>
+                      <label className="dark-color">{jobTitle}</label>
+                      <label>
+                        {formateDate(startDate)} - {formateDate(endDate)}
+                      </label>
+                    </div>
+
+                    <div className="r-info">
+                      <p>{summary}</p>
+                    </div>
+                    <div className="r-info">
+                      <ul>
+                        {bulletPoints.map((bulletPoint) => (
+                          <p className="mb-2">
+                            <i className=" fas fa-circle pr-2" />
+                            {bulletPoint}
+                          </p>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>{" "}
@@ -51,36 +74,43 @@ const Services = () => {
           <div className="resume-row">
             <h2 className="theme-after dark-color">Education</h2>
             <ul>
-              <li>
-                <div className="r-name">
-                  <i className="theme-bg fas fa-graduation-cap" />
-                  <span className="dark-color">University</span>
-                  <label>OCT 2015 - JUNE 2016</label>
-                </div>
-                <div className="r-info">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className="r-name">
-                  <i className="theme-bg fas fa-graduation-cap" />
-                  <span className="dark-color">Design and Art</span>
-                  <label>OCT 2015 - JUNE 2016</label>
-                </div>
-                <div className="r-info">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </li>
+              {experiences.map(
+                ({
+                  company_name,
+                  summary,
+                  startDate,
+                  endDate,
+                  jobTitle,
+                  _id,
+                  jobLocaion,
+                  bulletPoints,
+                }) => (
+                  <li key={_id}>
+                    <div className="r-name">
+                      <i className="theme-bg fas fa-graduation-cap" />
+                      <span className="dark-color">{company_name}</span>
+                      <label className="dark-color">{jobTitle}</label>
+                      <label>
+                        {formateDate(startDate)} - {formateDate(endDate)}
+                      </label>
+                    </div>
+
+                    <div className="r-info">
+                      <p>{summary}</p>
+                    </div>
+                    <div className="r-info">
+                      <ul>
+                        {bulletPoints.map((bulletPoint) => (
+                          <p className="mb-2">
+                            <i className=" fas fa-circle pr-2" />
+                            {bulletPoint}
+                          </p>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>{" "}
@@ -91,80 +121,59 @@ const Services = () => {
         <div className="sub-title m-30px-b">
           <h2 className="dark-color theme-after">My Skills</h2>
         </div>
-        <div className="row">
-          <div className="col-md-6 p-30px-r sm-p-15px-r">
-            <h3 className="dark-color">Design Skills</h3>
-            <div className="skills">
-              <div className="progress-lt">
-                <h6>Coral Draw</h6>
-                <span className="theme-bg">92%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "92%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
+        {categorizedSkills.map((categorizedSkill) => (
+          <div className="row my-5">
+            <div className="col-md-6 p-30px-r sm-p-15px-r">
+              <h3 className="dark-color">{categorizedSkill[0].displayName}</h3>
+              <div className="skills">
+                {categorizedSkill[0].skills.map((skill) => (
+                  <div className="progress-lt">
+                    <h6>{skill.name}</h6>
+                    <span className="theme-bg">{skill.percentage}%</span>
+                    <div className="progress">
+                      <div
+                        className="progress-bar"
+                        style={{ width: `${skill.percentage}%` }}
+                      ></div>
+                      {/* /progress-bar */}
+                    </div>
+                    {/* /progress */}
+                  </div>
+                ))}
+
+                {/* /progress-lt */}
               </div>
-              {/* /progress-lt */}
-              <div className="progress-lt">
-                <h6>Photoshop</h6>
-                <span className="theme-bg">84%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "84%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
-              <div className="progress-lt">
-                <h6>Illustrator</h6>
-                <span className="theme-bg">88%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "88%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
             </div>
+            {categorizedSkill[1] && (
+              <div className="col-md-6 p-30px-l sm-p-15px-l sm-m-30px-t">
+                <h3 className="dark-color">
+                  {categorizedSkill[1].displayName}
+                </h3>
+                <div className="skills">
+                  {categorizedSkill[1].skills.map((skill) => (
+                    <div className="progress-lt">
+                      <h6>{skill.name}</h6>
+                      <span className="theme-bg">{skill.percentage}%</span>
+                      <div className="progress">
+                        <div
+                          className="progress-bar"
+                          style={{ width: `${skill.percentage}%` }}
+                        ></div>
+                        {/* /progress-bar */}
+                      </div>
+                      {/* /progress */}
+                    </div>
+                  ))}
+
+                  {/* /progress-lt */}
+                </div>
+              </div>
+            )}
           </div>
-          <div className="col-md-6 p-30px-l sm-p-15px-l sm-m-30px-t">
-            <h3 className="dark-color">Coding Skills</h3>
-            <div className="skills">
-              <div className="progress-lt">
-                <h6>HTML5</h6>
-                <span className="theme-bg">92%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "92%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
-              <div className="progress-lt">
-                <h6>CSS3</h6>
-                <span className="theme-bg">84%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "84%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
-              <div className="progress-lt">
-                <h6>Javascript</h6>
-                <span className="theme-bg">88%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "88%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </SectionContainer>
   );
 };
+
 export default Services;

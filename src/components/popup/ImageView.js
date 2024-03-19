@@ -1,5 +1,6 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import useClickOutside from "../../useClickOutside";
+import { UIContext } from "@/src/UIContext";
 
 const ImgViews = ({ close, src }) => {
   let domNode = useClickOutside(() => {
@@ -29,28 +30,18 @@ const ImgViews = ({ close, src }) => {
 };
 
 const ImageView = () => {
+  const { imagePreview, hideImagePreview } = useContext(UIContext);
   const [img, setImg] = useState(false);
   const [imgValue, setImgValue] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      const a = document.querySelectorAll("a");
-      a.forEach((a) => {
-        if (a.href.includes("static/img/")) {
-          if (a.getAttribute("download") === null) {
-            a.addEventListener("click", (e) => {
-              e.preventDefault();
-              setImgValue(a.href);
-              setImg(true);
-            });
-          }
-        }
-      });
-    }, 1500);
-  }, []);
+    setImg(imagePreview.showImage);
+    setImgValue(imagePreview.imageSrc);
+  }, [imagePreview]);
+
   return (
     <Fragment>
-      {img && <ImgViews close={() => setImg(false)} src={imgValue} />}
+      {img && <ImgViews close={() => hideImagePreview()} src={imgValue} />}
     </Fragment>
   );
 };
