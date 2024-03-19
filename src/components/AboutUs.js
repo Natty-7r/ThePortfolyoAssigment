@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import SectionContainer from "./SectionContainer";
-import { AlexioContext } from "../Context";
+import SectionContainer from "./ui/SectionContainer";
+import { UserDataContext } from "../contexts/userData";
 
 const AboutUs = () => {
-  const {
-    userData: { about, services, projects, testimonials },
-  } = useContext(AlexioContext);
+  const { services, projects, testimonials, about } =
+    useContext(UserDataContext);
   return (
     <SectionContainer
       name={"about"}

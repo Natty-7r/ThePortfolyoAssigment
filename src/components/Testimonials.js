@@ -1,11 +1,9 @@
 import Slider from "react-slick";
-import { sliderProps } from "../sliderProps";
-import { AlexioContext } from "../Context";
+import { sliderProps } from "../utils/contants/sliderProps";
+import { UserDataContext } from "../contexts/userData";
 import { useContext } from "react";
 const Testimonials = () => {
-  const {
-    userData: { testimonials },
-  } = useContext(AlexioContext);
+  const { testimonials } = useContext(UserDataContext);
 
   return (
     <div className="testimonial-section m-30px-t sm-m-20px-t pb-5">

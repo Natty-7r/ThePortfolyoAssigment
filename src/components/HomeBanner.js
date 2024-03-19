@@ -1,13 +1,11 @@
 import { useContext } from "react";
-import { AlexioContext } from "../Context";
+import { UserDataContext } from "../contexts/userData";
 import TypingAnimation from "./TypingAnimation";
+import { UIContext } from "../contexts/UI";
 
 const HomeBanner = () => {
-  const {
-    nav,
-    changeNav,
-    userData: { about, social_handles },
-  } = useContext(AlexioContext);
+  const { about, social_handles } = useContext(UserDataContext);
+  const { nav, changeNav } = useContext(UIContext);
   const activePageClass = () => ("home" === nav ? "" : "page--inactive");
   return (
     <div

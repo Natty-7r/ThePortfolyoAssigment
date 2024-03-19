@@ -1,12 +1,10 @@
 import emailjs from "emailjs-com";
 import { useContext, useState } from "react";
-import SectionContainer from "./SectionContainer";
-import { AlexioContext } from "../Context";
+import SectionContainer from "./ui/SectionContainer";
+import { UserDataContext } from "../contexts/userData";
 
 const Contact = () => {
-  const {
-    userData: { about, email: emailAddress },
-  } = useContext(AlexioContext);
+  const { about, email: emailAddress } = useContext(UserDataContext);
   const [mailData, setMailData] = useState({
     name: "",
     email: "",

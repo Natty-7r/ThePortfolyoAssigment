@@ -1,13 +1,13 @@
 // layouts/MainLayout.js
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { AlexioContext } from "@/src/Context";
-import Preloader from "@/src/Preloader";
+import Preloader from "@/src/components/ui/Preloader";
+import { UserDataContext } from "@/src/contexts/userData";
 const API_URL =
   "https://dashboard-backend.cyclic.app/api/v1/get/user/65b3a22c01d900e96c4219ae";
 
 const MainLayout = ({ children }) => {
   const [isLoading, setLoadingState] = useState(true);
-  const { setUserData } = useContext(AlexioContext);
+  const { setUserData } = useContext(UserDataContext);
 
   const fetchUserData = async () => {
     try {

@@ -1,6 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import useClickOutside from "../../useClickOutside";
-import { UIContext } from "@/src/UIContext";
+import useClickOutside from "../../hooks/useClickOutside";
+import { UIContext } from "@/src/contexts/UI";
 
 const ImgViews = ({ close, src }) => {
   let domNode = useClickOutside(() => {

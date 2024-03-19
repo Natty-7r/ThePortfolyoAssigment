@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import useClickOutside from "../../useClickOutside";
-import { UIContext } from "@/src/UIContext";
+import useClickOutside from "../../hooks/useClickOutside";
+import { UIContext } from "@/src/contexts/UI";
 
 const VideoPopup_ = ({ close, videoID }) => {
   let domNode = useClickOutside(() => {

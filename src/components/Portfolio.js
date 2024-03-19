@@ -1,15 +1,13 @@
 import Isotope from "isotope-layout";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import SectionContainer from "./SectionContainer";
+import SectionContainer from "./ui/SectionContainer";
 import Testimonials from "./Testimonials";
-import { AlexioContext } from "../Context";
-import { UIContext } from "../UIContext";
+import { UserDataContext } from "../contexts/userData";
+import { UIContext } from "../contexts/UI";
 
 const Portfolio = () => {
   // Isotope
-  const {
-    userData: { projects, youtube },
-  } = useContext(AlexioContext);
+  const { projects, youtube } = useContext(UserDataContext);
 
   const { setImagePreview, setVideoPlayer } = useContext(UIContext);
   const isotope = useRef();

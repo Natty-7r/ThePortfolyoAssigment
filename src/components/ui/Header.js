@@ -1,13 +1,10 @@
 import { useContext } from "react";
-import { AlexioContext } from "./Context";
+import { UserDataContext } from "../../contexts/userData";
+import { UIContext } from "@/src/contexts/UI";
 
 const Header = () => {
-  const {
-    changeNav,
-    nav,
-    toggle,
-    userData: { about },
-  } = useContext(AlexioContext);
+  const { changeNav, nav, toggle } = useContext(UIContext);
+  const { about } = useContext(UserDataContext);
   return (
     <header className="header theme-bg">
       <div className="logo">{about.name.split(" ")[0]}</div>

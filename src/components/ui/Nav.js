@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { AlexioContext } from "./Context";
+import { UIContext } from "@/src/contexts/UI";
 
 const Nav = () => {
-  const { changeNav, toggle, nav } = useContext(AlexioContext);
+  const { changeNav, toggle, nav } = useContext(UIContext);
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const pages = document.querySelectorAll(".page");

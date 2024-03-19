@@ -7,11 +7,16 @@ const UIContext = createContext();
 const type = {
   IMAGE: "IMAGE",
   VIDOE: "VIDOE",
+  NAV: "NAV",
+  TOGGLE: "TOGGLE",
 };
-const { IMAGE, VIDOE } = type;
+const { IMAGE, VIDOE, NAV, TOGGLE } = type;
 
 // Initial Value
 const initialState = {
+  nav: "home",
+  toggle: false,
+
   imagePreview: {
     showImage: false,
     imageSrc: null,
@@ -36,6 +41,16 @@ const reducer = (state, action) => {
         ...state,
         videoPlayer: payload,
       };
+    case NAV:
+      return {
+        ...state,
+        nav: payload,
+      };
+    case TOGGLE:
+      return {
+        ...state,
+        toggle: payload,
+      };
 
     default:
       return state;
@@ -45,6 +60,17 @@ const reducer = (state, action) => {
 // Watson State
 const UIState = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const changeNav = useCallback((value, toggleValue) => {
+    dispatch({
+      type: NAV,
+      payload: value,
+    });
+    dispatch({
+      type: TOGGLE,
+      payload: toggleValue,
+    });
+  }, []);
 
   const setVideoPlayer = useCallback((videoSrc) => {
     dispatch({
@@ -83,16 +109,19 @@ const UIState = ({ children }) => {
     });
   }, []);
 
-  const { imagePreview, videoPlayer } = state;
+  const { imagePreview, videoPlayer, nav, toggle } = state;
   return (
     <UIContext.Provider
       value={{
+        nav,
+        toggle,
         imagePreview,
         videoPlayer,
         setImagePreview,
         hideImagePreview,
         setVideoPlayer,
         closeVidoePlayer,
+        changeNav,
       }}
     >
       {children}

@@ -1,15 +1,14 @@
 import { useContext, useMemo } from "react";
-import { AlexioContext } from "../Context";
-import SectionContainer from "./SectionContainer";
+import { UserDataContext } from "../contexts/userData";
+import SectionContainer from "./ui/SectionContainer";
 import {
   catagoriesExperience,
   categorizeSkills,
-  formateDate,
-} from "../utilits";
+} from "../utils/contants/skill";
+import { formateDate } from "../utils/contants/date";
+
 const Services = () => {
-  const {
-    userData: { skills, timeline },
-  } = useContext(AlexioContext);
+  const { skills, timeline } = useContext(UserDataContext);
   const categorizedSkills = useMemo(() => categorizeSkills(skills), []);
   const [educations, experiences] = useMemo(
     () => catagoriesExperience(timeline),
