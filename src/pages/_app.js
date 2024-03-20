@@ -1,5 +1,5 @@
 import AlexioHead from "@/src/components/ui/AlexioHead";
-import "@/styles/globals.css";
+import "@/src/styles/globals.css";
 import MainLayout from "./layout";
 import ContextProvider from "@/src/utils/providers/context.provider";
 
